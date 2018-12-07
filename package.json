@@ -63,6 +63,7 @@
     "express": "^4.15.2",
     "express-pino-logger": "^2.0.0",
     "figures": "^2.0.0",
+    "fs": "0.0.1-security",
     "hot-shots": "^4.4.0",
     "joi": "^10.6.0",
     "js-yaml": "^3.8.3",

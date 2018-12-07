@@ -3,6 +3,9 @@
 const DB = require('../lib/db')
 const configReader = require('../lib/config')
 const express = require('express')
+const https = require('https')
+const http = require('http')
+const fs = require('fs')
 const createLogger = require('../lib/create-logger')
 const createGrapher = require('../lib/create-grapher')
 
@@ -53,16 +56,25 @@ const startServer = (options, done) => {
 
   app.use(handleError(logger))
 
-  return app.listen(config.jackal.port, (err) => {
+  let jackalServer = app;
+  if(config.jackal.ssl)
+  {
+    const options = {
+      key: fs.readFileSync(config.jackal.ssl.key),
+      cert: fs.readFileSync(config.jackal.ssl.cert),
+      passphrase: config.jackal.ssl.passphrase
+    }
+    jackalServer = https.createServer(options, app)
+  }
+
+  return jackalServer.listen(config.jackal.port, (err) => {
     if (err) {
       logger.error(err)
       if (done) { return done(err) }
     }
-
     if (!config.quiet) {
       logger.info(`Starting server on port ${config.jackal.port}`)
     }
-
     if(done) {
       done()
     }

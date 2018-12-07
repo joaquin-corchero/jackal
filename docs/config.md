@@ -17,10 +17,18 @@ If specified in JSON, the configuration file should follow the below format:
   "statsD": {
     "host":         "STRING,   DEFAULT: localhost",
     "port":         "INTEGER,  DEFAULT: 8125",
-    "prefix":       "STRING,   DEFAULT: jackal"
+    "prefix":       "STRING,   DEFAULT: jackal",
+    "ssl (NOT REQUIRED)": {
+      "key":         "STRING,   DEFAULT: null",
+      "cert":        "STRING,   DEFAULT: null",
+      "passphrase":  "STRING,   DEFAULT: null",
+    }
   }
 }
 ```
+
+```
+Jackal should now be available at `https://localhost:25863`.
 
 ## YAML
 
@@ -33,6 +41,10 @@ statsD:
   host:             STRING,   DEFAULT: localhost
   port:             INTEGER,  DEFAULT: 8125
   prefix:           STRING,   DEFAULT: jackal
+  ssl:                NOT REQUIRED
+    key:              STRING,   DEFAULT: empty
+    cert:             STRING,   DEFAULT: empty
+    passphrase:       STRING,   DEFAULT: emptuy
 ```
 
 ## Guidelines
